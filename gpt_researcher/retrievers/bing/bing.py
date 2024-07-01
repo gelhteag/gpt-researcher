@@ -69,8 +69,13 @@ class BingSearch():
             return
         if search_results is None:
             return
-
-        results = search_results["webPages"]["value"]
+        # purpose: handle the case where the search results are not nested under the 'webPages' key but are directly in the response
+        # Check if 'webPages' key exists
+        if 'webPages' in search_results:
+            results = search_results["webPages"]["value"]
+        else:
+            results = search_results
+            
         search_results = []
 
         # Normalize the results to match the format of the other search APIs
