@@ -5,6 +5,7 @@ from .serper.serper import SerperSearch
 from .serpapi.serpapi import SerpApiSearch
 from .searx.searx import SearxSearch
 from .bing.bing import BingSearch
+from .brave.brave import BraveSearch
 from .custom.custom import CustomRetriever
 
 __all__ = [
@@ -16,4 +17,5 @@ __all__ = [
     "GoogleSearch",
     "SearxSearch",
     "BingSearch",
+    "BraveSearch",
 ]

@@ -42,6 +42,9 @@ def get_retriever(retriever):
         case "tavily":
             from gpt_researcher.retrievers import TavilySearch
             retriever = TavilySearch
+        case "brave":
+            from gpt_researcher.retrievers import BraveSearch
+            retriever = BraveSearch
         case "custom":
             from gpt_researcher.retrievers import CustomRetriever
             retriever = CustomRetriever
