@@ -1,4 +1,5 @@
 import os
+import logging
 
 from colorama import Fore, Style
 from langchain_mistralai import ChatMistralAI
@@ -17,10 +18,11 @@ class MistralProvider:
         self.max_tokens = max_tokens
         self.api_key = self.get_api_key()
         self.llm = self.get_llm_model()
+        
 
     def get_api_key(self):
         """
-        Gets the OpenAI API key
+        Gets the Mistral API key
         Returns:
 
         """
@@ -31,9 +33,26 @@ class MistralProvider:
                 "Mistral API key not found. Please set the MISTRAL_API_KEY environment variable.")
         return api_key
 
+    def get_endpoint(self):
+        """
+        Gets the Mistral endpoint
+        Returns:
+            str: The endpoint URL
+        """
+        # Check if MISTRAL_ENDPOINT is set with a custom endpoint
+        custom_endpoint = os.getenv("MISTRAL_ENDPOINT")
+        if custom_endpoint:
+            endpoint = custom_endpoint
+        else:
+            endpoint = "https://api.mistral.ai/v1"
+            logging.warning("No custom endpoint provided. Using default endpoint: https://api.mistral.ai/v1. If you need to use another provider, please set the MISTRAL_ENDPOINT environment variable.")
+        
+        return endpoint
+
     def get_llm_model(self):
         # Initializing the chat model
         llm = ChatMistralAI(
+            endpoint=self.get_endpoint(),
             model=self.model,
             temperature=self.temperature,
             max_tokens=self.max_tokens,
