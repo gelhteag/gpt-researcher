@@ -86,7 +86,8 @@ async def choose_agent(query, cfg, parent_query=None, cost_callback: callable = 
         return agent_dict["server"], agent_dict["agent_role_prompt"]
     
     except Exception as e:
-        print("⚠️ Error in reading JSON, attempting to repair JSON")
+        print(f"⚠️ Error in reading JSON, attempting to repair JSON")
+        print(f"⚠️ Error: {e}")
         return await handle_json_error(response)
 
 async def handle_json_error(response):
